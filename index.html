@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Простые инструменты — таймер, калькулятор, конвертер валют</title>
+<meta name="description" content="Таймер и секундомер, инженерный калькулятор и конвертер валют по актуальному курсу. Без регистрации, работает в браузере.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;600;700&family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+
+<div class="grid-bg" aria-hidden="true"></div>
+<div class="glow glow--1" aria-hidden="true"></div>
+<div class="glow glow--2" aria-hidden="true"></div>
+
+<header class="header">
+  <nav class="nav" aria-label="Основная навигация">
+    <a class="nav__pill" href="#converter" data-nav="converter" title="Конвертер валют">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.8 8.5h-1.6V4.8h.8a3 3 0 0 1 3 3 .8.8 0 0 0 1.6 0 4.6 4.6 0 0 0-4.6-4.6h-.8V1.5a.8.8 0 0 0-1.6 0v1.7h-.8a4.6 4.6 0 0 0 0 9.3h.8v3.7h-.8a3 3 0 0 1-3-3 .8.8 0 0 0-1.6 0 4.6 4.6 0 0 0 4.6 4.6h.8v1.7a.8.8 0 0 0 1.6 0v-1.7h1.6a4.6 4.6 0 1 0 0-9.3Zm-3.2 0a3 3 0 1 1 0-5.9v5.9Zm3.2 8.9h-1.6v-5.9h1.6a3 3 0 0 1 0 5.9Z"/></svg>
+      <span class="visually-hidden">Конвертер</span>
+    </a>
+    <a class="nav__pill" href="#timer" data-nav="timer" title="Таймер и секундомер">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 1h6a1 1 0 1 1 0 2h-2v1.06a9 9 0 1 1-2 0V3H9a1 1 0 0 1 0-2Zm3 5a7 7 0 1 0 0 14 7 7 0 0 0 0-14Zm0 2.5a1 1 0 0 1 1 1V13h2a1 1 0 1 1 0 2h-3a1 1 0 0 1-1-1V9.5a1 1 0 0 1 1-1Z"/></svg>
+      <span class="visually-hidden">Таймер</span>
+    </a>
+    <a class="nav__pill" href="#calculator" data-nav="calculator" title="Калькулятор">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 1h10a4 4 0 0 1 4 4v14a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V5a4 4 0 0 1 4-4Zm0 2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H7Zm1 2h8a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm0 5.5a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4Zm4 0a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4Zm4 0a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4Zm-8 4a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4Zm4 0a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4Zm4 0c.66 0 1.2.54 1.2 1.2v3.6a1.2 1.2 0 1 1-2.4 0v-3.6c0-.66.54-1.2 1.2-1.2Zm-8 4a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4Zm4 0a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4Z"/></svg>
+      <span class="visually-hidden">Калькулятор</span>
+    </a>
+  </nav>
+
+  <div class="nav nav--right">
+    <button class="nav__pill" id="themeToggle" type="button" title="Сменить тему" aria-label="Сменить тему">
+      <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.6 13.3a1 1 0 0 0-1.2-1.2 7.3 7.3 0 0 1-8.5-8.5 1 1 0 0 0-1.2-1.2 9.3 9.3 0 1 0 10.9 10.9ZM12 20.3a8 8 0 0 1-.9-16 9.3 9.3 0 0 0 9.6 9.6 8 8 0 0 1-8.7 6.4Z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17a5 5 0 1 1 0-10 5 5 0 0 1 0 10Zm0-2a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm0-13a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1Zm0 16a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0v-2a1 1 0 0 1 1-1ZM2 12a1 1 0 0 1 1-1h2a1 1 0 1 1 0 2H3a1 1 0 0 1-1-1Zm17 0a1 1 0 0 1 1-1h2a1 1 0 1 1 0 2h-2a1 1 0 0 1-1-1ZM4.9 4.9a1 1 0 0 1 1.4 0l1.4 1.4a1 1 0 0 1-1.4 1.4L4.9 6.3a1 1 0 0 1 0-1.4Zm11.4 11.4a1 1 0 0 1 1.4 0l1.4 1.4a1 1 0 0 1-1.4 1.4l-1.4-1.4a1 1 0 0 1 0-1.4Zm2.8-11.4a1 1 0 0 1 0 1.4l-1.4 1.4a1 1 0 1 1-1.4-1.4l1.4-1.4a1 1 0 0 1 1.4 0ZM7.7 16.3a1 1 0 0 1 0 1.4l-1.4 1.4a1 1 0 0 1-1.4-1.4l1.4-1.4a1 1 0 0 1 1.4 0Z"/></svg>
+    </button>
+    <button class="nav__pill nav__pill--lang" id="langToggle" type="button" title="Сменить язык" aria-label="Сменить язык">
+      <span id="langLabel">RU</span>
+    </button>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <h1 class="hero__title" data-i18n="hero.title">Простые инструменты</h1>
+    <p class="hero__sub" data-i18n="hero.sub">Для быстрых расчётов и повседневных задач</p>
+    <div class="hero__links">
+      <a class="btn btn--ghost" href="#timer" data-i18n="hero.timer">Таймер</a>
+      <a class="btn btn--ghost" href="#calculator" data-i18n="hero.calc">Калькулятор</a>
+      <a class="btn btn--ghost" href="#converter" data-i18n="hero.conv">Конвертер</a>
+    </div>
+  </section>
+
+  <!-- ===================== ТАЙМЕР ===================== -->
+  <section class="section" id="timer">
+    <div class="marquee" aria-hidden="true"><div class="marquee__track"><span>TIMER</span><span>TIMER</span><span>TIMER</span><span>TIMER</span><span>TIMER</span><span>TIMER</span></div></div>
+    <h2 class="section__title" data-i18n="timer.title">Таймер</h2>
+    <p class="section__lead" data-i18n="timer.lead">Удобный таймер и секундомер для любых задач</p>
+
+    <div class="card card--timer">
+      <div class="switch" role="tablist" aria-label="Режим">
+        <button class="switch__btn is-active" role="tab" aria-selected="true" data-mode="timer">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.7 6.3a1 1 0 0 1 0 1.4l-9.8 10a1 1 0 0 1-1.4 0l-4.2-5a1 1 0 1 1 1.5-1.3l3.5 4.2 9-9.2a1 1 0 0 1 1.4-.1Z"/></svg>
+          <span data-i18n="timer.tab.timer">Таймер</span>
+        </button>
+        <button class="switch__btn" role="tab" aria-selected="false" data-mode="stopwatch">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm0 2a8 8 0 1 1 0 16 8 8 0 0 1 0-16Zm1 4a1 1 0 1 0-2 0v4.4c0 .34.17.66.45.85l3.33 2.22a1 1 0 0 0 1.11-1.67L13 11.9V8Z"/></svg>
+          <span data-i18n="timer.tab.stopwatch">Секундомер</span>
+        </button>
+      </div>
+
+      <!-- Таймер -->
+      <div class="pane is-active" data-pane="timer">
+        <div class="display" id="timerDisplay" role="timer" aria-live="off">05:00</div>
+        <div class="display__hint" data-i18n="timer.hint">Нажмите на время, чтобы задать своё</div>
+
+        <div class="presets" id="timerPresets">
+          <button class="chip" data-seconds="60">1 <span data-i18n="unit.min">мин</span></button>
+          <button class="chip" data-seconds="180">3 <span data-i18n="unit.min">мин</span></button>
+          <button class="chip is-active" data-seconds="300">5 <span data-i18n="unit.min">мин</span></button>
+          <button class="chip" data-seconds="600">10 <span data-i18n="unit.min">мин</span></button>
+          <button class="chip" data-seconds="1500">25 <span data-i18n="unit.min">мин</span></button>
+        </div>
+
+        <div class="row row--adjust">
+          <button class="btn btn--soft" data-adjust="-30">− 0:30</button>
+          <button class="btn btn--soft" data-adjust="30">+ 0:30</button>
+        </div>
+
+        <div class="progress"><div class="progress__bar" id="timerProgress"></div></div>
+
+        <div class="row row--controls">
+          <button class="btn btn--primary btn--wide" id="timerStart">
+            <svg class="ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.14v13.72c0 .8.87 1.29 1.55.87l11-6.86a1 1 0 0 0 0-1.74l-11-6.86A1 1 0 0 0 8 5.14Z"/></svg>
+            <svg class="ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4h3v16H8zM13 4h3v16h-3z"/></svg>
+            <span data-i18n="btn.start">Старт</span>
+          </button>
+          <button class="btn btn--soft" id="timerReset" data-i18n="btn.reset">Сброс</button>
+          <button class="btn btn--icon" id="soundToggle" title="Звук" aria-pressed="true">
+            <svg class="ic-sound-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.6 3.4c.31.34.35.77.37.96.02.24.02.53.02.84v13.66c0 .3 0 .59-.02.83-.02.19-.06.62-.37.96-.34.37-.83.55-1.33.48-.45-.06-.76-.37-.9-.5-.16-.17-.35-.4-.54-.63l-2.65-3.18c-.39-.47-.47-.55-.55-.61a1 1 0 0 0-.32-.16c-.1-.03-.22-.03-.82-.03h-.94c-.25 0-.5 0-.7-.02a1.9 1.9 0 0 1-.77-.16 2 2 0 0 1-.88-.87 1.9 1.9 0 0 1-.2-.77c-.02-.21-.02-.45-.02-.7V10.6c0-.25 0-.49.02-.7a1.9 1.9 0 0 1 .2-.77 2 2 0 0 1 .88-.87c.27-.14.54-.18.77-.2.2-.02.45-.02.7-.02h.94c.6 0 .72 0 .82-.03a1 1 0 0 0 .32-.16c.08-.06.16-.14.55-.61l2.65-3.18c.2-.24.38-.46.55-.63.13-.13.44-.44.9-.5.5-.07.99.11 1.33.48Zm4.64 1.25a1 1 0 0 1 1.41-.03A9.97 9.97 0 0 1 22 12c0 2.96-1.29 5.62-3.33 7.45a1 1 0 1 1-1.34-1.49A7.97 7.97 0 0 0 20 12c0-2.37-1.03-4.5-2.67-5.96a1 1 0 0 1-.09-1.4Zm-1.85 3.55a1 1 0 0 1 1.4.2A5.97 5.97 0 0 1 18 12c0 1.35-.45 2.6-1.2 3.6a1 1 0 1 1-1.6-1.2A3.97 3.97 0 0 0 16 12c0-.9-.3-1.73-.8-2.4a1 1 0 0 1 .2-1.4Z"/></svg>
+            <svg class="ic-sound-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.6 3.4c.31.34.35.77.37.96.02.24.02.53.02.84v13.66c0 .3 0 .59-.02.83-.02.19-.06.62-.37.96-.34.37-.83.55-1.33.48-.45-.06-.76-.37-.9-.5-.16-.17-.35-.4-.54-.63l-2.65-3.18c-.39-.47-.47-.55-.55-.61a1 1 0 0 0-.32-.16c-.1-.03-.22-.03-.82-.03h-.94c-.25 0-.5 0-.7-.02a1.9 1.9 0 0 1-.77-.16 2 2 0 0 1-.88-.87 1.9 1.9 0 0 1-.2-.77c-.02-.21-.02-.45-.02-.7V10.6c0-.25 0-.49.02-.7a1.9 1.9 0 0 1 .2-.77 2 2 0 0 1 .88-.87c.27-.14.54-.18.77-.2.2-.02.45-.02.7-.02h.94c.6 0 .72 0 .82-.03a1 1 0 0 0 .32-.16c.08-.06.16-.14.55-.61l2.65-3.18c.2-.24.38-.46.55-.63.13-.13.44-.44.9-.5.5-.07.99.11 1.33.48ZM16.3 8.3a1 1 0 0 1 1.4 0l1.3 1.29 1.3-1.3a1 1 0 1 1 1.4 1.42L20.42 11l1.3 1.3a1 1 0 0 1-1.42 1.4L19 12.42l-1.3 1.3a1 1 0 0 1-1.4-1.42l1.28-1.3-1.29-1.3a1 1 0 0 1 0-1.4Z"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Секундомер -->
+      <div class="pane" data-pane="stopwatch">
+        <div class="display" id="swDisplay">00:00<span class="display__ms">.00</span></div>
+        <div class="display__hint" data-i18n="sw.hint">Пробел — старт и пауза, L — круг</div>
+
+        <div class="row row--controls">
+          <button class="btn btn--primary btn--wide" id="swStart">
+            <svg class="ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.14v13.72c0 .8.87 1.29 1.55.87l11-6.86a1 1 0 0 0 0-1.74l-11-6.86A1 1 0 0 0 8 5.14Z"/></svg>
+            <svg class="ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4h3v16H8zM13 4h3v16h-3z"/></svg>
+            <span data-i18n="btn.start">Старт</span>
+          </button>
+          <button class="btn btn--soft" id="swLap" data-i18n="btn.lap">Круг</button>
+          <button class="btn btn--soft" id="swReset" data-i18n="btn.reset">Сброс</button>
+        </div>
+
+        <ol class="laps" id="swLaps" aria-live="polite"></ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== КАЛЬКУЛЯТОР ===================== -->
+  <section class="section" id="calculator">
+    <div class="marquee marquee--rev" aria-hidden="true"><div class="marquee__track"><span>CALC</span><span>CALC</span><span>CALC</span><span>CALC</span><span>CALC</span><span>CALC</span></div></div>
+    <h2 class="section__title" data-i18n="calc.title">Калькулятор</h2>
+    <p class="section__lead" data-i18n="calc.lead">Инженерный: скобки, тригонометрия, степени и корни</p>
+
+    <div class="card card--calc">
+      <div class="calc__screen">
+        <div class="calc__expr" id="calcExpr" aria-live="off">0</div>
+        <div class="calc__result" id="calcResult">0</div>
+      </div>
+
+      <div class="calc__keys" id="calcKeys">
+        <button class="key key--mode" data-act="angle"><span id="angleLabel">Deg</span></button>
+        <button class="key key--fn" data-act="inv" id="invKey">Inv</button>
+        <button class="key key--fn" data-ins="sin(">sin</button>
+        <button class="key key--fn" data-ins="cos(">cos</button>
+        <button class="key key--fn" data-ins="tan(">tan</button>
+        <button class="key key--fn" data-act="clear">AC</button>
+
+        <button class="key key--fn" data-ins="&#960;">&#960;</button>
+        <button class="key key--fn" data-ins="e">e</button>
+        <button class="key key--fn" data-ins="ln(">ln</button>
+        <button class="key key--fn" data-ins="log(">log</button>
+        <button class="key key--fn" data-ins="&#8730;(">&#8730;</button>
+        <button class="key key--fn" data-act="back" aria-label="Удалить">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.29 4a2 2 0 0 0-1.5.68l-5.3 6a2 2 0 0 0 0 2.64l5.3 6a2 2 0 0 0 1.5.68H20a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H9.29Zm2.42 4.3L14 10.58l2.3-2.3a1 1 0 1 1 1.4 1.42L15.42 12l2.3 2.3a1 1 0 0 1-1.42 1.4L14 13.42l-2.29 2.3a1 1 0 0 1-1.42-1.42L12.58 12l-2.3-2.29a1 1 0 0 1 1.42-1.42Z"/></svg>
+        </button>
+
+        <button class="key key--fn" data-ins="^">x<sup>y</sup></button>
+        <button class="key key--fn" data-ins="!">x!</button>
+        <button class="key" data-ins="7">7</button>
+        <button class="key" data-ins="8">8</button>
+        <button class="key" data-ins="9">9</button>
+        <button class="key key--op" data-ins="/">&#247;</button>
+
+        <button class="key key--fn" data-ins="(">(</button>
+        <button class="key key--fn" data-ins=")">)</button>
+        <button class="key" data-ins="4">4</button>
+        <button class="key" data-ins="5">5</button>
+        <button class="key" data-ins="6">6</button>
+        <button class="key key--op" data-ins="*">&#215;</button>
+
+        <button class="key key--fn" data-ins="%">%</button>
+        <button class="key key--fn" data-act="ans">Ans</button>
+        <button class="key" data-ins="1">1</button>
+        <button class="key" data-ins="2">2</button>
+        <button class="key" data-ins="3">3</button>
+        <button class="key key--op" data-ins="-">&#8722;</button>
+
+        <button class="key key--fn" data-ins="E">EXP</button>
+        <button class="key key--fn" data-act="neg">&#177;</button>
+        <button class="key" data-ins="0">0</button>
+        <button class="key" data-ins=".">.</button>
+        <button class="key key--eq" data-act="eq">=</button>
+        <button class="key key--op" data-ins="+">+</button>
+      </div>
+
+      <div class="calc__history">
+        <div class="calc__history-head">
+          <span data-i18n="calc.history">История</span>
+          <button class="link" id="histClear" data-i18n="calc.clear">Очистить</button>
+        </div>
+        <ul id="calcHistory" class="calc__history-list"></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== КОНВЕРТЕР ===================== -->
+  <section class="section" id="converter">
+    <div class="marquee" aria-hidden="true"><div class="marquee__track"><span>CURRENCY</span><span>CURRENCY</span><span>CURRENCY</span><span>CURRENCY</span></div></div>
+    <h2 class="section__title" data-i18n="conv.title">Конвертер валют</h2>
+    <p class="section__lead" data-i18n="conv.lead">Актуальные курсы и динамика за 30 дней</p>
+
+    <div class="card card--conv">
+      <div class="conv__status" id="convStatus" aria-live="polite">
+        <span class="dot"></span><span data-i18n="conv.loading">Загружаем курсы…</span>
+      </div>
+
+      <div class="conv__row">
+        <div class="field">
+          <label class="field__label" for="fromCur" data-i18n="conv.from">Из</label>
+          <div class="field__box">
+            <select id="fromCur" class="field__select"></select>
+            <input id="fromAmount" class="field__input" type="text" inputmode="decimal" value="1" aria-label="Сумма">
+          </div>
+        </div>
+
+        <button class="swap" id="swapBtn" title="Поменять местами" aria-label="Поменять валюты местами">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.9 8.6a1 1 0 0 0-1-1H5.5l2.3-2.3a1 1 0 1 0-1.4-1.4l-4 4a1 1 0 0 0 .7 1.7h13.8a1 1 0 0 0 1-1Zm3.9 3.6a1 1 0 0 0-.9-.6H7.1a1 1 0 1 0 0 2h11.4l-2.3 2.3a1 1 0 0 0 1.4 1.4l4-4a1 1 0 0 0 .2-1.1Z"/></svg>
+        </button>
+
+        <div class="field">
+          <label class="field__label" for="toCur" data-i18n="conv.to">В</label>
+          <div class="field__box">
+            <select id="toCur" class="field__select"></select>
+            <input id="toAmount" class="field__input" type="text" inputmode="decimal" value="0" aria-label="Результат">
+          </div>
+        </div>
+      </div>
+
+      <p class="conv__rate" id="convRate">—</p>
+
+      <div class="conv__grid">
+        <div class="stats">
+          <h3 class="stats__title" data-i18n="conv.stats">За 30 дней</h3>
+          <div class="stats__row"><span data-i18n="conv.min">Мин.</span><b id="statMin">—</b></div>
+          <div class="stats__row"><span data-i18n="conv.avg">Сред.</span><b id="statAvg">—</b></div>
+          <div class="stats__row"><span data-i18n="conv.max">Макс.</span><b id="statMax">—</b></div>
+          <div class="stats__row stats__row--accent"><span data-i18n="conv.now">Сейчас</span><b id="statNow">—</b></div>
+        </div>
+
+        <figure class="chart">
+          <figcaption class="chart__cap" id="chartCap">—</figcaption>
+          <div class="chart__box" id="chartBox"></div>
+        </figure>
+      </div>
+
+      <div class="quick" id="quickList"></div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <p data-i18n="footer.note">Курсы валют предоставлены открытым API и обновляются раз в сутки. Не является финансовой рекомендацией.</p>
+  <p class="footer__small" id="footerUpdated"></p>
+</footer>
+
+<script src="assets/app.js"></script>
+</body>
+</html>
